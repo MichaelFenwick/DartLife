@@ -11,7 +11,7 @@ void main() {
   PausableTimer simulationTimer;
   CanvasElement canvas = querySelector('#canvas');
 
-  LifeBoard lifeBoard = new LifeBoard(
+  LifeBoard lifeBoard = new LifeBoard.empty(
       canvas,
       width: int.parse((querySelector('#gridWidthSlider') as RangeInputElement).value),
       height: int.parse((querySelector('#gridHeightSlider') as RangeInputElement).value),
@@ -79,8 +79,25 @@ void main() {
     });
   });
 
-//TODO: Add controls for things like random
-//add a glider as an initial population
+  querySelector('#clearButton').onClick.listen((Event e) {
+    lifeBoard = new LifeBoard.empty(
+      lifeBoard.canvas,
+      width: lifeBoard.width,
+      height: lifeBoard.height,
+      wrap: lifeBoard.wrap
+    );
+  });
+
+  querySelector('#randomButton').onClick.listen((Event e) {
+    lifeBoard = new LifeBoard.random(
+      lifeBoard.canvas,
+      width: lifeBoard.width,
+      height: lifeBoard.height,
+      wrap: lifeBoard.wrap
+    );
+  });
+
+  //add a glider as an initial population
   lifeBoard.getCell(10, 10).isAlive = true;
   lifeBoard.getCell(10, 11).isAlive = true;
   lifeBoard.getCell(10, 12).isAlive = true;
@@ -128,13 +145,32 @@ class LifeBoard {
   List<int> surviveRules = [2, 3];
   int sightRange = 1;
 
-  LifeBoard(CanvasElement this.canvas, {int width:20, int height:20, bool this.wrap:true}) {
+  LifeBoard(CanvasElement this.canvas, {int width:20, int height:20, bool this.wrap:true, Function fillFunction}) {
     _width = width;
     _height = height;
     _cellDrawSize = calculateCellDrawSize();
-    cells = createCellArray(() => new Cell(isAlive: false));
+    cells = createCellArray(fillFunction is Function ? fillFunction : () => null);
     canvasContext = canvas.context2D;
   }
+
+  LifeBoard.empty(CanvasElement canvas, {int width:20, int height:20, bool wrap:true}): this(
+      canvas,
+      width: width,
+      height: height,
+      wrap: wrap,
+      fillFunction: () => new Cell(isAlive: false)
+  );
+
+  LifeBoard.random(CanvasElement canvas, {int width:20, int height:20, bool wrap:true}): this(
+      canvas,
+      width: width,
+      height: height,
+      wrap: wrap,
+      fillFunction: () => new Cell(isAlive: (() {
+        Random rand = new Random();
+        return rand.nextBool();
+      })())
+  );
 
   set width(int width) {
     _width = width;
@@ -145,6 +181,9 @@ class LifeBoard {
     _height = height;
     _cellDrawSize = calculateCellDrawSize();
   }
+
+  get width => _width;
+  get height => _height;
 
   num calculateCellDrawSize() {
     return min(canvas.width / _width, canvas.height / _height);
