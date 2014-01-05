@@ -10,6 +10,7 @@ void main() {
   bool runSimulation = false;
   PausableTimer simulationTimer;
   CanvasElement canvas = querySelector('#canvas');
+
   LifeBoard lifeBoard = new LifeBoard(
       canvas,
       width: int.parse((querySelector('#gridWidthSlider') as RangeInputElement).value),
@@ -47,7 +48,37 @@ void main() {
     lifeBoard.height = newHeight;
   });
 
-//TODO: Add the ability to toggle cells on or off via clicking or click + drag
+  /* FIXME: The onClick event seems to be firing even when the mouse is moved between the mousedown and mouseup actions.
+   * Not sure if this is a bug in Dart or intended, but it is interfering with the end of a drag event
+   * where releasing the mouse to end the drag is also registering as a click at that location.
+   */
+  querySelector('#canvas').onClick.listen((MouseEvent e) {
+    Cell clickedCell = lifeBoard.getCellByCanvasCoords(e.offsetX, e.offsetY);
+    if (clickedCell is Cell) {
+       clickedCell.toggle();
+    }
+  });
+
+  querySelector('#canvas').onMouseDown.listen((MouseEvent mouseDownEvent) {
+    CanvasElement canvas = mouseDownEvent.target;
+    StreamSubscription moveSubscription;
+    StreamSubscription mouseUpSubscription;
+    Cell hoverCell;
+
+    moveSubscription = canvas.onMouseMove.listen((MouseEvent moveEvent) {
+      Cell targetCell = lifeBoard.getCellByCanvasCoords(moveEvent.offsetX, moveEvent.offsetY);
+      if (targetCell is Cell && hoverCell != targetCell) {
+        targetCell.toggle();
+      }
+      hoverCell = targetCell;
+    });
+
+    mouseUpSubscription = document.onMouseUp.listen((MouseEvent mouseUpEvent) {
+      moveSubscription.cancel();
+      mouseUpSubscription.cancel();
+    });
+  });
+
 //TODO: Add controls for things like random
 //add a glider as an initial population
   lifeBoard.getCell(10, 10).isAlive = true;
@@ -76,6 +107,10 @@ class Cell {
   bool isAlive = false;
 
   Cell({bool this.isAlive: false}) {}
+
+  bool toggle() {
+    return isAlive = !isAlive;
+  }
 }
 
 class LifeBoard {
@@ -178,6 +213,13 @@ class LifeBoard {
       // If we don't wrap, it's possible to go out of the list bounds.  Return null if that happens (there is no cell there).
       return null;
     }
+  }
+
+  Cell getCellByCanvasCoords(x, y) {
+    return getCell(
+        (x / _cellDrawSize).floor(),
+        (y / _cellDrawSize).floor()
+    );
   }
 
   void draw() {
