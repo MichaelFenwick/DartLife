@@ -1,0 +1,11 @@
+label {
+    width: 200px;
+    float: left;
+    display: block;
+}
+
+input[type=range] {
+    width: 700px;
+    float: right;
+    display: block;
+}
