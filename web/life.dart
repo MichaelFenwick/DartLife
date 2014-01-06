@@ -6,6 +6,7 @@ import 'dart:math';
 
 part 'life_board.dart';
 part 'life_engine.dart';
+part 'rule_set.dart';
 part 'cell.dart';
 part 'pausable_timer.dart';
 
@@ -19,7 +20,7 @@ void main() {
       wrap: true
   );
 
-  LifeEngine lifeEngine = new LifeEngine(lifeBoard);
+  LifeEngine lifeEngine = new LifeEngine.conway(lifeBoard);
 
   PausableTimer simulationTimer = new PausableTimer(
       new Duration(milliseconds: int.parse((querySelector('#simulationSpeedSlider') as RangeInputElement).value)),
@@ -103,6 +104,48 @@ void main() {
 
     querySelector('#randomButton').onClick.listen((Event e) {
       lifeBoard.randomize();
+    });
+
+
+    ElementList ruleSetButtons = querySelectorAll('.ruleSetButton');
+
+    void setActiveRulesSetButton(ButtonElement activeButton) {
+      ruleSetButtons.classes.remove('active');
+      activeButton.classes.add('active');
+    }
+
+    void updateRulesSet() {
+      ButtonElement activeButton = querySelector('.ruleSetButton.active');
+      TextInputElement birthRulesTextbox = querySelector('#birthRulesTextbox');
+      TextInputElement surviveRulesTextbox = querySelector('#surviveRulesTextbox');
+      String newRuleSetName = activeButton.value;
+      RuleSet newRuleSet;
+
+      if (newRuleSetName == 'custom') {
+        newRuleSet = new RuleSet(
+            RuleSet.parseRuleSetString(birthRulesTextbox.value),
+            RuleSet.parseRuleSetString(surviveRulesTextbox.value),
+            1
+        );
+      } else {
+        newRuleSet = new RuleSet.byName(activeButton.value);
+      }
+
+      lifeEngine.ruleSet = newRuleSet;
+
+      birthRulesTextbox.value = newRuleSet.birthRules.join();
+      surviveRulesTextbox.value = newRuleSet.surviveRules.join();
+    }
+
+    ruleSetButtons.onClick.listen((Event e) {
+      ButtonElement clickedButton = e.target;
+      setActiveRulesSetButton(clickedButton);
+      updateRulesSet();
+    });
+
+    querySelectorAll('#birthRulesTextbox, #surviveRulesTextbox').onChange.listen((Event e) {
+      setActiveRulesSetButton(querySelector('.ruleSetButton[value="custom"]'));
+      updateRulesSet();
     });
   }
 

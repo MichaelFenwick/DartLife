@@ -5,7 +5,7 @@
     border: 1px solid #888888;
 }
 
-label {
+#simulationPanel label {
     width: 180px;
     float: left;
     display: block;
@@ -33,6 +33,15 @@ input[type=range] {
 button {
     padding: 5px 10px;
     font-size: 14px;
+}
+
+button.active {
+    background-color: #0000dd;
+    color: #ffffff;
+}
+
+#gameTypePanel input {
+    width: 100px;
 }
 
 canvas {
