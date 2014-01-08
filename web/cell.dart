@@ -11,12 +11,9 @@ class Cell {
 
   Cell.alive() : this(isAlive: true);
 
-  Cell.random() : this(isAlive: (() {
-    Random rand = new Random();
-    return rand.nextBool();
-  })());
+  Cell.random() : this(isAlive: (new Random()).nextBool());
 
-  bool toggle() {
-    return isAlive = !isAlive;
-  }
+  bool toggle() => isAlive = !isAlive;
+
+  bool randomize() => isAlive = (new Random()).nextBool();
 }

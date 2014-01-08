@@ -106,6 +106,9 @@ void main() {
       lifeBoard.randomize();
     });
 
+    querySelector('#invertButton').onClick.listen((Event e) {
+      lifeBoard.invert();
+    });
 
     ElementList ruleSetButtons = querySelectorAll('.ruleSetButton');
 

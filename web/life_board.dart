@@ -37,12 +37,17 @@ class LifeBoard {
   );
 
   void clear() {
-    setCells((x, y) => new Cell.dead());
+    setCells((x, y) => getCell(x, y)..isAlive = false);
   }
 
   void randomize() {
-    setCells((x, y) => new Cell.random());
+    setCells((x, y) => getCell(x, y)..randomize());
   }
+
+  invert() {
+    setCells((x, y) => getCell(x, y)..toggle());
+  }
+
 
   void setCells(CellGenerator fillFunction) {
     cells = createCellArray(fillFunction);
