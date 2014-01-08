@@ -17,7 +17,8 @@ void main() {
       canvas,
       width: int.parse((querySelector('#gridWidthSlider') as RangeInputElement).value),
       height: int.parse((querySelector('#gridHeightSlider') as RangeInputElement).value),
-      wrap: true
+      wrap: true,
+      drawGrid: true
   );
 
   LifeEngine lifeEngine = new LifeEngine.conway(lifeBoard);
@@ -108,6 +109,10 @@ void main() {
 
     querySelector('#invertButton').onClick.listen((Event e) {
       lifeBoard.invert();
+    });
+
+    querySelector('#gridButton').onClick.listen((Event e) {
+      querySelector('#gridButtonValue').text = lifeBoard.toggleGrid() ? "On" : "Off";
     });
 
     ElementList ruleSetButtons = querySelectorAll('.ruleSetButton');

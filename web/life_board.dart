@@ -11,8 +11,9 @@ class LifeBoard {
   List<List<Cell>> cells = [];
   num _cellDrawSize;
   Map<String, int> gridColor = {'r': 127, 'g': 127, 'b': 127};
+  bool drawGrid;
 
-  LifeBoard(CanvasElement this.canvas, {int width, int height, bool this.wrap:true, CellGenerator fillFunction}) {
+  LifeBoard(CanvasElement this.canvas, {int width, int height, bool this.wrap:true, bool this.drawGrid:true, CellGenerator fillFunction}) {
     _width = width is int ? width : 20;
     _height = height is int ? height : 20;
     _cellDrawSize = calculateCellDrawSize();
@@ -20,19 +21,21 @@ class LifeBoard {
     setCells(fillFunction is CellGenerator ? fillFunction : (x, y) => null);
   }
 
-  LifeBoard.empty(CanvasElement canvas, {int width, int height, bool wrap}): this(
+  LifeBoard.empty(CanvasElement canvas, {int width, int height, bool wrap, bool drawGrid}): this(
     canvas,
     width: width,
     height: height,
     wrap: wrap,
+    drawGrid: drawGrid,
     fillFunction: (x, y) => new Cell.dead()
   );
 
-  LifeBoard.random(CanvasElement canvas, {int width, int height, bool wrap}): this(
+  LifeBoard.random(CanvasElement canvas, {int width, int height, bool wrap, bool drawGrid}): this(
     canvas,
     width: width,
     height: height,
     wrap: wrap,
+    drawGrid: drawGrid,
     fillFunction: (x, y) => new Cell.random()
   );
 
@@ -47,7 +50,6 @@ class LifeBoard {
   invert() {
     setCells((x, y) => getCell(x, y)..toggle());
   }
-
 
   void setCells(CellGenerator fillFunction) {
     cells = createCellArray(fillFunction);
@@ -102,6 +104,8 @@ class LifeBoard {
     );
   }
 
+  bool toggleGrid() => drawGrid = !drawGrid;
+
   void draw() {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     for (int x = 0; x < _width; x++) {
@@ -115,8 +119,10 @@ class LifeBoard {
           }
         }
         canvasContext.fillRect(x * _cellDrawSize, y * _cellDrawSize, _cellDrawSize, _cellDrawSize);
-        canvasContext.setStrokeColorRgb(gridColor['r'], gridColor['g'], gridColor['b']);
-        canvasContext.strokeRect(x * _cellDrawSize, y * _cellDrawSize, _cellDrawSize, _cellDrawSize);
+        if (drawGrid) {
+          canvasContext.setStrokeColorRgb(gridColor['r'], gridColor['g'], gridColor['b']);
+          canvasContext.strokeRect(x * _cellDrawSize, y * _cellDrawSize, _cellDrawSize, _cellDrawSize);
+        }
       }
     }
   }
