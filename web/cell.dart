@@ -1,8 +1,8 @@
 part of Life;
 
 class Cell {
-  Map<String, int> liveColor = {'r': 0, 'g': 0, 'b': 127};
-  Map<String, int> deadColor = {'r': 255, 'g': 255, 'b': 255};
+  Map<String, int> liveColor = new Color.blue();
+  Map<String, int> deadColor = new Color.white();
   bool isAlive = false;
 
   Cell({bool this.isAlive}) {}

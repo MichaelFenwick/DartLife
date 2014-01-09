@@ -8,6 +8,7 @@ part 'life_board.dart';
 part 'life_engine.dart';
 part 'rule_set.dart';
 part 'cell.dart';
+part 'color.dart';
 part 'pausable_timer.dart';
 
 void main() {
@@ -154,6 +155,18 @@ void main() {
     querySelectorAll('#birthRulesTextbox, #surviveRulesTextbox').onChange.listen((Event e) {
       setActiveRulesSetButton(querySelector('.ruleSetButton[value="custom"]'));
       updateRulesSet();
+    });
+
+    ElementList colorButtons = querySelectorAll('.colorBox');
+
+    void setActiveColorButton(ButtonElement activeButton) {
+      colorButtons.classes.remove('active');
+      activeButton.classes.add('active');
+    }
+
+    colorButtons.onClick.listen((Event e) {
+      ButtonElement clickedButton = e.target;
+      setActiveColorButton(clickedButton);
     });
   }
 

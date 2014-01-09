@@ -36,8 +36,20 @@ button {
 }
 
 button.active {
-    background-color: #0000dd;
+    background-color: #0000cc;
     color: #ffffff;
+}
+
+.colorBox {
+    width: 30px;
+    height: 30px;
+    float: right;
+    margin: 0 10px;
+}
+
+.colorBox.active {
+    border: 1px solid #ffffff;
+    outline: 4px solid #ff0000;
 }
 
 #gameTypePanel input {

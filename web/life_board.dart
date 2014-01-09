@@ -10,7 +10,7 @@ class LifeBoard {
   bool wrap;
   List<List<Cell>> cells = [];
   num _cellDrawSize;
-  Map<String, int> gridColor = {'r': 127, 'g': 127, 'b': 127};
+  Map<String, int> gridColor = new Color.gray50();
   bool drawGrid;
 
   LifeBoard(CanvasElement this.canvas, {int width, int height, bool this.wrap:true, bool this.drawGrid:true, CellGenerator fillFunction}) {
@@ -113,14 +113,14 @@ class LifeBoard {
         Cell cell = getCell(x, y);
         if (cell is Cell){
           if (cell.isAlive) {
-            canvasContext.setFillColorRgb(cell.liveColor['r'], cell.liveColor['g'], cell.liveColor['b']);
+            canvasContext.setFillColorRgb(cell.liveColor.r, cell.liveColor.g, cell.liveColor.b);
           } else {
-            canvasContext.setFillColorRgb(cell.deadColor['r'], cell.deadColor['g'], cell.deadColor['b']);
+            canvasContext.setFillColorRgb(cell.deadColor.r, cell.deadColor.g, cell.deadColor.b);
           }
         }
         canvasContext.fillRect(x * _cellDrawSize, y * _cellDrawSize, _cellDrawSize, _cellDrawSize);
         if (drawGrid) {
-          canvasContext.setStrokeColorRgb(gridColor['r'], gridColor['g'], gridColor['b']);
+          canvasContext.setStrokeColorRgb(gridColor.r, gridColor.g, gridColor.b);
           canvasContext.strokeRect(x * _cellDrawSize, y * _cellDrawSize, _cellDrawSize, _cellDrawSize);
         }
       }
