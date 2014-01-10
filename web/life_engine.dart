@@ -22,18 +22,19 @@ class LifeEngine {
     for (int x = 0; x < lifeBoard.width; x++) {
       for (int y = 0; y < lifeBoard.height; y++) {
         Cell cell = lifeBoard.getCell(x, y);
-        int neighborCount = countNeighbors(x, y);
+        List<Cell> neighbors = getNeighbors(x, y);
+        int neighborCount = neighbors.length;
         if (cell is Cell && cell.isAlive) {
           if (ruleSet.surviveRules.contains(neighborCount)) {
-            newCells[x][y] = new Cell(isAlive: true);
+            newCells[x][y] = cell;
           } else {
-            newCells[x][y] = new Cell(isAlive: false);
+            newCells[x][y] = new Cell.dead();
           }
         } else {
           if (ruleSet.birthRules.contains(neighborCount)) {
-            newCells[x][y] = new Cell(isAlive: true);
+            newCells[x][y] = new Cell.fromParents(neighbors);
           } else {
-            newCells[x][y] = new Cell(isAlive: false);
+            newCells[x][y] = new Cell.dead();
           }
         }
       }
@@ -41,19 +42,19 @@ class LifeEngine {
     lifeBoard.cells = newCells;
   }
 
-  int countNeighbors(x, y) {
-    int count = 0;
+  int getNeighbors(x, y) {
+    List<Cell> neighbors = [];
     for (int i = x - ruleSet.sightRange; i <= x + ruleSet.sightRange; i++) {
       for (int j = y - ruleSet.sightRange; j <= y + ruleSet.sightRange; j++) {
         if (!(x == i && y == j)) { //don't count the cell in question
           Cell cell = lifeBoard.getCell(i, j);
           if (cell is Cell && cell.isAlive) {
-            count += 1;
+            neighbors.add(cell);
           }
         }
       }
     }
 
-    return count;
+    return neighbors;
   }
 }

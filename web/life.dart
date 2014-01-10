@@ -173,3 +173,5 @@ void main() {
   setupEventListeners();
   requestDraw();
 }
+
+Color getActiveColor() => new Color.byName(querySelector('.colorBox.active').dataset['color']);
