@@ -1,3 +1,8 @@
+#controlPanel {
+    margin: 0 auto;
+    width: 900px;
+}
+
 .panel {
     float: left; width: 880px;
     margin: 0 auto 10px;
@@ -54,6 +59,10 @@ button.active {
 
 #gameTypePanel input {
     width: 100px;
+}
+
+#gameTypePanel label {
+    margin: 0 3px 0 20px;
 }
 
 canvas {

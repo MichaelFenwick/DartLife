@@ -6,41 +6,43 @@
 </head>
 <body>
 
-<div id="simulationPanel" class="panel">
-    <button id="pauseButton">Start</button>
-    <label for="simulationSpeedSlider">Simulation Speed (<span id="simulationSpeedValue">50</span> ms):</label>
-    <input type="range" id="simulationSpeedSlider" min="1" max="1000" value="50">
-    <label for="gridWidthSlider">Grid Width (<span id="widthValue">50</span> cells):</label>
-    <input type="range" id="gridWidthSlider" min="1" max="200" value="50">
-    <label for="gridHeightSlider">Grid Height (<span id="heightValue">50</span> cells):</label>
-    <input type="range" id="gridHeightSlider" min="1" max="200" value="50">
+<div id="controlPanel">
+    <div id="simulationPanel" class="panel">
+        <button id="pauseButton">Start</button>
+        <label for="simulationSpeedSlider">Simulation Speed (<span id="simulationSpeedValue">50</span> ms):</label>
+        <input type="range" id="simulationSpeedSlider" min="1" max="1000" value="50">
+        <label for="gridWidthSlider">Grid Width (<span id="widthValue">50</span> cells):</label>
+        <input type="range" id="gridWidthSlider" min="1" max="200" value="50">
+        <label for="gridHeightSlider">Grid Height (<span id="heightValue">50</span> cells):</label>
+        <input type="range" id="gridHeightSlider" min="1" max="200" value="50">
+    </div>
+    <div id="brushPanel" class="panel">
+        <button id="clearButton">Clear Grid</button>
+        <button id="randomButton">Random Fill</button>
+        <button id="invertButton">Invert</button>
+        <button id="gridButton">Grid <span id="gridButtonValue">On</span></button>
+        <div class="colorBox active" data-color="purple" style="background-color: #8800cc"></div>
+        <div class="colorBox" data-color="blue" style="background-color: #000099"></div>
+        <div class="colorBox" data-color="green" style="background-color: #009900"></div>
+        <div class="colorBox" data-color="yellow" style="background-color: #e8e800"></div>
+        <div class="colorBox" data-color="orange" style="background-color: #ff8800"></div>
+        <div class="colorBox" data-color="red" style="background-color: #cc0000"></div>
+        <div class="colorBox" data-color="black" style="background-color: #000000"></div>
+    </div>
+    <div id="gameTypePanel" class="panel">
+        <button class="ruleSetButton active" value="conway">Conway</button>
+        <button class="ruleSetButton" value="highLife">High Life</button>
+        <button class="ruleSetButton" value="lifeWithoutDeath">Life Without Death</button>
+        <button class="ruleSetButton" value="dayAndNight">Day &amp; Night</button>
+        <button class="ruleSetButton" value="seeds">Seeds</button>
+        <button class="ruleSetButton" value="custom">Custom</button>
+        <label for="birthRulesTextbox">B:</label>
+        <input type="text" id="birthRulesTextbox" value="3"/>
+        <label for="surviveRulesTextbox">S:</label>
+        <input type="text" id="surviveRulesTextbox" value="23"/>
+    </div>
 </div>
-<div id="brushPanel" class="panel">
-    <button id="clearButton">Clear Grid</button>
-    <button id="randomButton">Random Fill</button>
-    <button id="invertButton">Invert</button>
-    <button id="gridButton">Grid <span id="gridButtonValue">On</span></button>
-    <div class="colorBox active" data-color="purple" style="background-color: #8800cc"></div>
-    <div class="colorBox" data-color="blue" style="background-color: #000099"></div>
-    <div class="colorBox" data-color="green" style="background-color: #009900"></div>
-    <div class="colorBox" data-color="yellow" style="background-color: #e8e800"></div>
-    <div class="colorBox" data-color="orange" style="background-color: #ff8800"></div>
-    <div class="colorBox" data-color="red" style="background-color: #cc0000"></div>
-    <div class="colorBox" data-color="black" style="background-color: #000000"></div>
-</div>
-<div id="gameTypePanel" class="panel">
-    <button class="ruleSetButton active" value="conway">Conway</button>
-    <button class="ruleSetButton" value="highLife">High Life</button>
-    <button class="ruleSetButton" value="lifeWithoutDeath">Life Without Death</button>
-    <button class="ruleSetButton" value="dayAndNight">Day &amp; Night</button>
-    <button class="ruleSetButton" value="seeds">Seeds</button>
-    <button class="ruleSetButton" value="custom">Custom</button>
-    <label for="birthRulesTextbox">B:</label>
-    <input type="text" id="birthRulesTextbox" value="3"/>
-    <label for="surviveRulesTextbox">S:</label>
-    <input type="text" id="surviveRulesTextbox" value="23"/>
-</div>
-<canvas id="canvas" width="800px" height="800px"></canvas>
+<canvas id="canvas" width="900px" height="900px"></canvas>
 
 <script type="application/dart" src="life.dart"></script>
 <script src="packages/browser/dart.js"></script>
