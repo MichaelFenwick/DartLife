@@ -69,32 +69,27 @@ void main() {
       lifeBoard.height = newHeight;
     });
 
-    /* FIXME: The onClick event seems to be firing even when the mouse is moved between the mousedown and mouseup actions.
-     * Not sure if this is a bug in Dart or intended, but it is interfering with the end of a drag event
-     * where releasing the mouse to end the drag is also registering as a click at that location.
-     */
-    querySelector('#canvas').onClick.listen((MouseEvent e) {
-      Cell clickedCell = lifeBoard.getCellByCanvasCoords(e.offsetX, e.offsetY);
-      if (clickedCell is Cell) {
-        clickedCell.toggle();
-      }
-    });
+    CanvasElement canvas = querySelector('#canvas');
 
-    querySelector('#canvas').onMouseDown.listen((MouseEvent mouseDownEvent) {
-      CanvasElement canvas = mouseDownEvent.target;
+    canvas.onMouseDown.listen((MouseEvent mouseDownEvent) {
       StreamSubscription moveSubscription;
       StreamSubscription mouseUpSubscription;
-      Cell hoverCell;
+      Cell hoverCell = null;
 
-      moveSubscription = canvas.onMouseMove.listen((MouseEvent moveEvent) {
-        Cell targetCell = lifeBoard.getCellByCanvasCoords(moveEvent.offsetX, moveEvent.offsetY);
+      void toggleHoverCell(MouseEvent event) {
+        Cell targetCell = lifeBoard.getCellByCanvasCoords(event.offsetX, event.offsetY);
         if (targetCell is Cell && hoverCell != targetCell) {
           targetCell.toggle();
         }
         hoverCell = targetCell;
+      }
+
+      moveSubscription = canvas.onMouseMove.listen((MouseEvent moveEvent) {
+        toggleHoverCell(moveEvent);
       });
 
       mouseUpSubscription = document.onMouseUp.listen((MouseEvent mouseUpEvent) {
+        toggleHoverCell(mouseUpEvent);
         moveSubscription.cancel();
         mouseUpSubscription.cancel();
       });
