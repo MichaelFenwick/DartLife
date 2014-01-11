@@ -42,7 +42,7 @@ class LifeEngine {
     lifeBoard.cells = newCells;
   }
 
-  int getNeighbors(x, y) {
+  List<Cell> getNeighbors(x, y) {
     List<Cell> neighbors = [];
     for (int i = x - ruleSet.sightRange; i <= x + ruleSet.sightRange; i++) {
       for (int j = y - ruleSet.sightRange; j <= y + ruleSet.sightRange; j++) {

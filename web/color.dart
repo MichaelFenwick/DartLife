@@ -49,5 +49,6 @@ class Color {
     }
   }
 
+  get hashCode => 256 * 256 * r + 256 * g + b;
   operator ==(Color o) => r == o.r && g == o.g && b == o.b;
 }

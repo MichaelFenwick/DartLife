@@ -77,7 +77,7 @@ void main() {
       Cell hoverCell = null;
 
       void toggleHoverCell(MouseEvent event) {
-        Cell targetCell = lifeBoard.getCellByCanvasCoords(event.offsetX, event.offsetY);
+        Cell targetCell = lifeBoard.getCellByCanvasCoords(event.offset.x, event.offset.y);
         if (targetCell is Cell && hoverCell != targetCell) {
           targetCell.toggle();
         }
