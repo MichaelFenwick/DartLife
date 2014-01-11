@@ -55,5 +55,8 @@ class Cell {
     isAlive = !isAlive;
   }
 
-  bool randomize() => isAlive = (new Random()).nextBool();
+  bool randomize() {
+    liveColor = getActiveColor();
+    return isAlive = (new Random()).nextBool();
+  }
 }

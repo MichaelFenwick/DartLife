@@ -159,9 +159,22 @@ void main() {
       activeButton.classes.add('active');
     }
 
-    colorButtons.onClick.listen((Event e) {
-      ButtonElement clickedButton = e.target;
-      setActiveColorButton(clickedButton);
+    void toggleColorButton(ButtonElement button) {
+      if (button.classes.contains('active')) {
+        button.classes.remove('active');
+      } else {
+        button.classes.add('active');
+      }
+    }
+
+    colorButtons.onClick.listen((MouseEvent event) {
+      ButtonElement clickedButton = event.target;
+      if (event.ctrlKey) {
+        toggleColorButton(clickedButton);
+      } else {
+        setActiveColorButton(clickedButton);
+      }
+      activeColors = getActiveColors();
     });
   }
 
@@ -169,4 +182,12 @@ void main() {
   requestDraw();
 }
 
-Color getActiveColor() => new Color.byName(querySelector('.colorBox.active').dataset['color']);
+List<Color> activeColors = getActiveColors();
+
+List<Color> getActiveColors() => querySelectorAll('.colorBox.active').toList().map(
+  (Element element) => new Color.byName(element.dataset['color'])
+).toList();
+
+Color getActiveColor() {
+  return activeColors[new Random().nextInt(activeColors.length)];
+}
