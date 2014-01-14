@@ -1,6 +1,6 @@
-#controlPanel {
+#content {
     margin: 0 auto;
-    width: 900px;
+    width: 1100px;
 }
 
 .panel {
@@ -18,7 +18,7 @@
 }
 
 input[type=range] {
-    width: 600px;
+    width: 700px;
     float: right;
     display: block;
     height: 24px;
@@ -27,12 +27,11 @@ input[type=range] {
     margin: 0;
 }
 
-#pauseButton {
+#gameTypePanel #pauseButton {
     float: right;
-    height: 72px;
-    width: 72px;
-    margin-left: 15px;
-    font-size: 18px;
+    height: 100px;
+    margin-bottom: 25px;
+    font-size: 22px;
 }
 
 button {
@@ -57,16 +56,31 @@ button.active {
     outline: 4px solid #ff0000;
 }
 
+#gameTypePanel {
+    float: left;
+    width: 160px;
+    margin-right: 10px;
+}
+
+#gameTypePanel button {
+    display: block;
+    width: 160px;
+    margin-bottom: 5px;
+}
+
 #gameTypePanel input {
-    width: 100px;
+    width: 155px;
+    display: block;
 }
 
 #gameTypePanel label {
-    margin: 0 3px 0 20px;
+    margin-top: 10px;
+    display: block;
 }
 
 canvas {
     display: block;
+    float: left;
     margin: 0 auto;
     cursor: pointer;
     border: 1px solid #000000;
