@@ -169,7 +169,7 @@ void main() {
 
     colorButtons.onClick.listen((MouseEvent event) {
       ButtonElement clickedButton = event.target;
-      if (event.ctrlKey) {
+      if (event.ctrlKey || event.altKey) {
         toggleColorButton(clickedButton);
       } else {
         setActiveColorButton(clickedButton);
