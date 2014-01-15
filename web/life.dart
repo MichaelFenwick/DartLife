@@ -142,8 +142,11 @@ void main() {
     }
 
     ruleSetButtons.onClick.listen((Event e) {
-      ButtonElement clickedButton = e.target;
-      setActiveRulesSetButton(clickedButton);
+      Element target = e.target;
+      while (target is! ButtonElement && target is! HtmlDocument) {
+        target = target.parent;
+      }
+      setActiveRulesSetButton(target);
       updateRulesSet();
     });
 
