@@ -111,6 +111,10 @@ void main() {
       querySelector('#gridButtonValue').text = lifeBoard.toggleGrid() ? "On" : "Off";
     });
 
+    querySelector('#wrapButton').onClick.listen((Event e) {
+      querySelector('#wrapButtonValue').text = lifeBoard.toggleWrap() ? "On" : "Off";
+    });
+
     ElementList ruleSetButtons = querySelectorAll('.ruleSetButton');
 
     void setActiveRulesSetButton(ButtonElement activeButton) {

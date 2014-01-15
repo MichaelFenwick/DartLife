@@ -106,6 +106,8 @@ class LifeBoard {
 
   bool toggleGrid() => drawGrid = !drawGrid;
 
+  bool toggleWrap() => wrap = !wrap;
+
   void draw() {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     for (int x = 0; x < _width; x++) {
