@@ -4,18 +4,7 @@ class LifeEngine {
   LifeBoard lifeBoard;
   RuleSet ruleSet;
 
-  LifeEngine(LifeBoard this.lifeBoard, RuleSet this.ruleSet) {
-  }
-
-  LifeEngine.conway(LifeBoard lifeBoard) : this(lifeBoard, new RuleSet.conway());
-
-  LifeEngine.highLife(LifeBoard lifeBoard) : this(lifeBoard, new RuleSet.highLife());
-
-  LifeEngine.lifeWithoutDeath(LifeBoard lifeBoard) : this(lifeBoard, new RuleSet.lifeWithoutDeath());
-
-  LifeEngine.dayAndNight(LifeBoard lifeBoard) : this(lifeBoard, new RuleSet.dayAndNight());
-
-  LifeEngine.seeds(LifeBoard lifeBoard) : this(lifeBoard, new RuleSet.seeds());
+  LifeEngine(LifeBoard this.lifeBoard, RuleSet this.ruleSet) {}
 
   void tick() {
     List<List<Cell>> newCells = lifeBoard.createCellArray((x, y) => null);

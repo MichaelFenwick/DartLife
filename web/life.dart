@@ -22,7 +22,7 @@ void main() {
       drawGrid: true
   );
 
-  LifeEngine lifeEngine = new LifeEngine.conway(lifeBoard);
+  LifeEngine lifeEngine = new LifeEngine(lifeBoard, new RuleSet.byName('conway'));
 
   PausableTimer simulationTimer = new PausableTimer(
       new Duration(milliseconds: int.parse((querySelector('#simulationSpeedSlider') as RangeInputElement).value)),
@@ -36,6 +36,25 @@ void main() {
       lifeBoard.draw();
       requestDraw();
     });
+  }
+
+  void buildInterface() {
+    ButtonElement buildRuleSetButton({RuleSet ruleSet, String name, String value}) {
+      String birthString = ruleSet is RuleSet ? ruleSet.birthRules.join() : "???";
+      String surviveString = ruleSet is RuleSet ? ruleSet.surviveRules.join() : "???";
+      String rulesSummary = "B$birthString/S$surviveString";
+      return new ButtonElement()..classes.add('ruleSetButton')
+        ..value = value
+        ..text = name
+        ..append(new SpanElement()..classes.add('rule')..text = rulesSummary);
+    }
+
+    DivElement buttonContainer = querySelector('#ruleSetButtons');
+    RuleSet.builtIns.forEach((String key, Map ruleSetInfo) {
+      buttonContainer.append(buildRuleSetButton(ruleSet: ruleSetInfo['ruleSet'], name: ruleSetInfo['name'], value: key));
+    });
+    buttonContainer.append(buildRuleSetButton(name: "Custom", value: 'custom'));
+    (buttonContainer.firstChild as ButtonElement).classes.add('active');
   }
 
   void setupEventListeners() {
@@ -185,6 +204,7 @@ void main() {
     });
   }
 
+  buildInterface();
   setupEventListeners();
   requestDraw();
 }

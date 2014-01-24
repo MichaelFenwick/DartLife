@@ -10,19 +10,7 @@
     <div id="controlPanel">
         <div id="gameTypePanel" class="panel">
             <button id="pauseButton">Start</button>
-            <button class="ruleSetButton active" value="conway">Conway's Life<span class="rule">B3/S23</span></button>
-            <button class="ruleSetButton" value="highLife">High Life<span class="rule">B36/S23</span></button>
-            <button class="ruleSetButton" value="lifeWithoutDeath">Life Without Death<span class="rule">B3/S012345678</span></button>
-            <button class="ruleSetButton" value="dayAndNight">Day &amp; Night<span class="rule">B3678/S34678</span></button>
-            <button class="ruleSetButton" value="seeds">Seeds<span class="rule">B2/S</span></button>
-            <button class="ruleSetButton" value="replicator">Replicator<span class="rule">B1357/S1357</span></button>
-            <button class="ruleSetButton" value="maze">Maze<span class="rule">B3/S12345</span></button>
-            <button class="ruleSetButton" value="mazectric">Mazectric<span class="rule">B3/S1234</span></button>
-            <button class="ruleSetButton" value="twoByTwo">2x2<span class="rule">B36/S125</span></button>
-            <button class="ruleSetButton" value="move">Move<span class="rule">B368/S245</span></button>
-            <button class="ruleSetButton" value="amoeba">Amoeba<span class="rule">B357/S1358</span></button>
-            <button class="ruleSetButton" value="liveFreeOrDie">Live Free Or Die<span class="rule">B2/S0</span></button>
-            <button class="ruleSetButton" value="custom">Custom<span class="rule">B???/S???</span></button>
+            <div id="ruleSetButtons"></div>
             <label for="birthRulesTextbox">Birth Conditions:</label>
             <input type="text" id="birthRulesTextbox" value="3"/>
             <label for="surviveRulesTextbox">Survival Conditions:</label>
