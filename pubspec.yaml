@@ -1,3 +1,4 @@
 name: Life
 dependencies:
   browser: any
+  color: any

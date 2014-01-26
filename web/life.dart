@@ -3,12 +3,12 @@ library Life;
 import 'dart:html';
 import 'dart:async';
 import 'dart:math';
+import 'package:color/color.dart';
 
 part 'life_board.dart';
 part 'life_engine.dart';
 part 'rule_set.dart';
 part 'cell.dart';
-part 'color.dart';
 part 'pausable_timer.dart';
 
 void main() {
@@ -212,7 +212,7 @@ void main() {
 List<Color> activeColors = getActiveColors();
 
 List<Color> getActiveColors() => querySelectorAll('.colorBox.active').toList().map(
-  (Element element) => new Color.byName(element.dataset['color'])
+  (Element element) => new Color.hex(element.dataset['color'])
 ).toList();
 
 Color getActiveColor() {

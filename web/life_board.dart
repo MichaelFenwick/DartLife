@@ -10,7 +10,7 @@ class LifeBoard {
   bool wrap;
   List<List<Cell>> cells = [];
   num _cellDrawSize;
-  Color gridColor = new Color.gray50();
+  Color gridColor = new Color.hex("888888");
   bool drawGrid;
 
   LifeBoard(CanvasElement this.canvas, {int width, int height, bool this.wrap:true, bool this.drawGrid:true, CellGenerator fillFunction}) {

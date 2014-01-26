@@ -7,7 +7,7 @@ class Cell {
 
   Cell({bool this.isAlive: false, Color this.liveColor, Color this.deadColor}) {
     liveColor = liveColor is Color ? liveColor : getActiveColor();
-    deadColor = deadColor is Color ? deadColor : new Color.white();
+    deadColor = deadColor is Color ? deadColor : new Color.hex("ffffff");
   }
 
   Cell.dead() : this(isAlive: false);
@@ -44,7 +44,7 @@ class Cell {
       this.liveColor = getActiveColor();
     }
 
-    this.deadColor = new Color.white();
+    this.deadColor = new Color.hex("ffffff");
     this.isAlive = true;
   }
 
